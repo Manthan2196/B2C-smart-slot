@@ -22,13 +22,7 @@ The project was built as a practical MVP with a clean frontend, a structured bac
 
 ### 2. Video Demo
 
-**Demo Video Link:** _Add your final video link here_
-
-Example format:
-
-```text
-https://your-video-demo-link.com
-```
+**Demo Video:** [Watch the project demo](https://drive.google.com/file/d/10S3jAZtj6-iSg9DLiIPffBeuWzRmFz1K/view?usp=sharing)
 
 ---
 
