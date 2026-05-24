@@ -1,0 +1,10 @@
+Frontend/node_modules/
+Frontend/dist/
+Backend/bin/
+Backend/obj/
+Backend/.codex-build/
+Backend/.codex-temp/
+*.log
+*.err.log
+.DS_Store
+Thumbs.db
