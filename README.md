@@ -32,6 +32,84 @@ https://your-video-demo-link.com
 
 ---
 
+### Screenshots Walkthrough
+
+The screenshots below show the project flow from customer browsing to admin control, backend API quality, and database design.
+
+#### 1. Offer Marketplace Overview
+
+![Offer Marketplace Overview](screenshots/Screenshot%202026-05-24%20230209.png)
+
+The marketplace landing view presents the active local offers, available seats, navigation sidebar, and a clear entry point for creating new offers.
+
+#### 2. Offer Filters and Deal Cards
+
+![Offer Filters and Deal Cards](screenshots/Screenshot%202026-05-24%20230221.png)
+
+Users can filter offers by business type, category, availability, date, price range, and sorting preference. Each offer card highlights discount, business name, location, description, and price.
+
+#### 3. Admin Login
+
+![Admin Login](screenshots/Screenshot%202026-05-24%20230403.png)
+
+The admin login screen supports platform admin access and business-owner access, with demo credentials visible for quick hackathon evaluation.
+
+#### 4. Dashboard Summary
+
+![Dashboard Summary](screenshots/Screenshot%202026-05-24%20230418.png)
+
+The dashboard gives admins a quick view of total offers, active offers, bookings, revenue, conversion, and available seat capacity.
+
+#### 5. Analytics and Performance Tracking
+
+![Analytics and Performance Tracking](screenshots/Screenshot%202026-05-24%20230428.png)
+
+The analytics area shows booking demand, category distribution, expiring offers, and top-performing offers by booked seats.
+
+#### 6. Business Profile and Recent Activity
+
+![Business Profile and Recent Activity](screenshots/Screenshot%202026-05-24%20230438.png)
+
+Business owners can maintain public listing details such as name, category, contact information, city, address, and working hours while reviewing recent bookings.
+
+#### 7. Create Offer Form
+
+![Create Offer Form](screenshots/Screenshot%202026-05-24%20230448.png)
+
+The create-offer screen captures business, title, category, pricing, validity dates, timing, capacity, and customer booking limits.
+
+#### 8. Offer Management
+
+![Offer Management](screenshots/Screenshot%202026-05-24%20230458.png)
+
+Admins can search, filter, update status, manage slots, refresh, and delete offers from a structured management table.
+
+#### 9. Booking Desk
+
+![Booking Desk](screenshots/Screenshot%202026-05-24%20230522.png)
+
+The booking desk lists customer bookings with booking reference, customer details, offer, slot, people count, status, timeline, and action controls.
+
+#### 10. Swagger API Documentation
+
+![Swagger API Documentation](screenshots/Screenshot%202026-05-24%20230552.png)
+
+Swagger exposes backend API groups such as Auth, Bookings, Business, Dashboard, Offers, and Slots for testing and review.
+
+#### 11. Backend Endpoint Coverage
+
+![Backend Endpoint Coverage](screenshots/Screenshot%202026-05-24%20230603.png)
+
+The backend includes full CRUD-style API coverage for businesses, offers, bookings, slots, and dashboard summary data.
+
+#### 12. ER Diagram
+
+![ER Diagram](screenshots/Screenshot%202026-05-24%20230634.png)
+
+The relational design connects users, businesses, offers, offer slots, and bookings using clear primary-key and foreign-key relationships.
+
+---
+
 ### 3. Problem Statement
 
 Many local businesses run short-term offers, but they usually manage bookings manually through phone calls, messages, spreadsheets, or walk-ins. This creates common problems:
@@ -165,6 +243,9 @@ talent-hunt-booking/
 |       |-- relational_schema.md
 |       `-- database_explanation.md
 |
+|-- screenshots/
+|   `-- project screenshots used in this README
+|
 |-- .env.example
 |-- .gitignore
 `-- README.md
@@ -259,27 +340,39 @@ The backend seeds demo users for quick testing.
 - .NET 8 SDK
 - PostgreSQL database
 
-#### 1. Clone the repository
+#### Step 1: Clone the repository
 
 ```bash
 git clone <your-repository-url>
 cd talent-hunt-booking
 ```
 
-#### 2. Configure environment variables
-
-Create a frontend environment file from the example:
+#### Step 2: Install frontend dependencies
 
 ```bash
 cd Frontend
+npm install
+```
+
+#### Step 3: Configure frontend API URL
+
+Create a `.env` file inside `Frontend/`:
+
+```bash
 cp ../.env.example .env
 ```
 
-Update `VITE_API_URL` if your backend runs on a different port.
+Default value:
 
-For the backend, configure the PostgreSQL connection string in `Backend/appsettings.Development.json` or through environment variables.
+```env
+VITE_API_URL=http://localhost:5170
+```
 
-Example connection string:
+#### Step 4: Configure backend database
+
+Open `Backend/appsettings.json` or `Backend/appsettings.Development.json` and set the PostgreSQL connection string.
+
+Local PostgreSQL example:
 
 ```json
 {
@@ -289,7 +382,17 @@ Example connection string:
 }
 ```
 
-#### 3. Run the backend
+Supabase/PostgreSQL URL format is also supported by the backend:
+
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "postgresql://username:password@host:5432/postgres"
+  }
+}
+```
+
+#### Step 5: Run the backend
 
 ```bash
 cd Backend
@@ -302,14 +405,13 @@ The backend applies migrations and seeds demo data on startup.
 Swagger is available in development mode at:
 
 ```text
-https://localhost:<backend-port>/swagger
+http://localhost:5170/swagger/index.html
 ```
 
-#### 4. Run the frontend
+#### Step 6: Run the frontend
 
 ```bash
 cd Frontend
-npm install
 npm run dev
 ```
 
@@ -317,6 +419,17 @@ The frontend usually runs at:
 
 ```text
 http://localhost:5173
+```
+
+#### Step 7: Test the main API endpoints
+
+Use Swagger or a browser to check:
+
+```text
+GET http://localhost:5170/api/offers
+GET http://localhost:5170/api/business
+GET http://localhost:5170/api/bookings
+GET http://localhost:5170/api/dashboard/summary
 ```
 
 ---
