@@ -334,6 +334,8 @@ The backend seeds demo users for quick testing.
 - .NET 8 SDK
 - PostgreSQL database
 
+If you don't already have the .NET SDK installed, download and install the .NET 8 SDK from the official site: https://dotnet.microsoft.com/en-us/download
+
 #### Step 1: Clone the repository
 
 ```bash
@@ -361,6 +363,8 @@ Default value:
 ```env
 VITE_API_URL=http://localhost:5170
 ```
+
+Note: Vite's dev server normally starts on port `5173`. If that port is already in use, Vite may pick `5174`, `5175`, etc. After starting the frontend (`npm run dev`), check the terminal for the exact URL (e.g. `http://localhost:5174`) and update `VITE_API_URL` in `Frontend/.env` to match the reported port so the frontend can reach the backend.
 
 #### Step 4: Configure backend database
 

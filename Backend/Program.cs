@@ -22,9 +22,30 @@ builder.Services.AddControllers()
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("Frontend", policy =>
-        policy.WithOrigins("http://localhost:5173", "https://localhost:5173")
-            .AllowAnyHeader()
-            .AllowAnyMethod());
+    {
+        // Allow optional configured origin(s) (set via configuration or environment)
+        // e.g. Frontend:AllowedOrigins or VITE_API_URL (single or semicolon-separated)
+        var configured = builder.Configuration["Frontend:AllowedOrigins"] ?? builder.Configuration["VITE_API_URL"];
+        if (!string.IsNullOrWhiteSpace(configured))
+        {
+            var origins = configured.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            if (origins.Length > 0)
+            {
+                policy.WithOrigins(origins);
+            }
+        }
+
+        // Always allow localhost and 127.0.0.1 with any port in development/local setups
+        policy.SetIsOriginAllowed(origin =>
+        {
+            if (!Uri.TryCreate(origin, UriKind.Absolute, out var uri)) return false;
+            var host = uri.Host;
+            return string.Equals(host, "localhost", StringComparison.OrdinalIgnoreCase)
+                   || string.Equals(host, "127.0.0.1", StringComparison.OrdinalIgnoreCase);
+        })
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
 });
 
 var connectionString = NormalizePostgresConnectionString(
