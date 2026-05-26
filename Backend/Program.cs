@@ -23,9 +23,8 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("Frontend", policy =>
     {
-        // Allow optional configured origin(s) (set via configuration or environment)
-        // e.g. Frontend:AllowedOrigins or VITE_API_URL (single or semicolon-separated)
-        var configured = builder.Configuration["Frontend:AllowedOrigins"] ?? builder.Configuration["VITE_API_URL"];
+        // Allow optional configured origin(s), e.g. Frontend:AllowedOrigins as a semicolon-separated list.
+        var configured = builder.Configuration["Frontend:AllowedOrigins"];
         if (!string.IsNullOrWhiteSpace(configured))
         {
             var origins = configured.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
@@ -63,7 +62,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("Frontend");
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 app.MapControllers();
 
 using (var scope = app.Services.CreateScope())

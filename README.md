@@ -364,11 +364,13 @@ Default value:
 VITE_API_URL=http://localhost:5170
 ```
 
-Note: Vite's dev server normally starts on port `5173`. If that port is already in use, Vite may pick `5174`, `5175`, etc. After starting the frontend (`npm run dev`), check the terminal for the exact URL (e.g. `http://localhost:5174`) and update `VITE_API_URL` in `Frontend/.env` to match the reported port so the frontend can reach the backend.
+Note: `VITE_API_URL` must point to the backend API URL, usually `http://localhost:5170`. Vite's frontend dev server normally starts on port `5173`; if that frontend port changes to `5174`, `5175`, etc., do not change `VITE_API_URL` unless the backend API port also changes.
 
 #### Step 4: Configure backend database
 
 Open `Backend/appsettings.json` or `Backend/appsettings.Development.json` and set the PostgreSQL connection string.
+
+This repository intentionally includes the demo PostgreSQL/Supabase connection string in `Backend/appsettings.json` so a new evaluator can connect to the prepared database quickly without extra setup.
 
 Local PostgreSQL example:
 
